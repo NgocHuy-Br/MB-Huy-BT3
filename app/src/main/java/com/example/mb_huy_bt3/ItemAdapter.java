@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +31,6 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_layout, parent, false);
 
             holder = new ViewHolder();
-            holder.imgIcon = convertView.findViewById(R.id.imgIcon);
             holder.tvName = convertView.findViewById(R.id.tvName);
             holder.tvDescription = convertView.findViewById(R.id.tvDescription);
 
@@ -43,7 +41,6 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
         Item item = items.get(position);
 
-        holder.imgIcon.setImageResource(item.getIconRes());
         holder.tvName.setText(item.getName());
         holder.tvDescription.setText(item.getDescription());
 
@@ -51,7 +48,6 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     }
 
     static class ViewHolder {
-        ImageView imgIcon;
         TextView tvName;
         TextView tvDescription;
     }
