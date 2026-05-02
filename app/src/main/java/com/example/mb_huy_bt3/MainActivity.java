@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     Spinner spinner;
+    RadioGroup radioGroup;
     ListView listView;
     List<Item> doiDungList;
     List<Item> linhKienList;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         spinner = findViewById(R.id.spinner);
+        radioGroup = findViewById(R.id.radioGroup);
         listView = findViewById(R.id.listView);
 
         doiDungList = new ArrayList<>();
@@ -46,18 +50,37 @@ public class MainActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
 
+        // Spinner selection listener
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Sync radio button with spinner
                 if (position == 0) {
+                    radioGroup.check(R.id.rbDoiDung);
                     showItems(doiDungList);
                 } else {
+                    radioGroup.check(R.id.rbLinhKien);
                     showItems(linhKienList);
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // RadioGroup selection listener
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Sync spinner with radio button
+                if (checkedId == R.id.rbDoiDung) {
+                    spinner.setSelection(0);
+                    showItems(doiDungList);
+                } else if (checkedId == R.id.rbLinhKien) {
+                    spinner.setSelection(1);
+                    showItems(linhKienList);
+                }
             }
         });
 
