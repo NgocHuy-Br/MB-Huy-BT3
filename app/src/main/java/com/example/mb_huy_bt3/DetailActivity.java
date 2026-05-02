@@ -1,6 +1,8 @@
 package com.example.mb_huy_bt3;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView tvName = findViewById(R.id.tvDetailName);
         TextView tvDescription = findViewById(R.id.tvDetailDescription);
         ImageView imgDetail = findViewById(R.id.imgDetail);
+        Button btnBack = findViewById(R.id.btnBack);
 
         String name = getIntent().getStringExtra("name");
         String description = getIntent().getStringExtra("description");
@@ -24,5 +27,11 @@ public class DetailActivity extends AppCompatActivity {
         tvName.setText(name);
         tvDescription.setText(description);
         imgDetail.setImageResource(iconRes);
+
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(DetailActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 }
